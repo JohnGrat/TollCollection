@@ -1,4 +1,4 @@
-﻿namespace Presentation.Config
+﻿namespace Presentation.Configs
 {
     public static class AppConfig
     {
