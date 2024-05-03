@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using Data.Model;
+﻿using Data.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace Data
@@ -8,7 +6,7 @@ namespace Data
     public class TollCollectionDbContext : DbContext
     {
         public DbSet<VehicleType> VehicleTypes { get; set; }
-        public DbSet<Vehicle> Vehicles { get; set; }
+        public DbSet<TollPassage> TollPassages { get; set; }
 
         public TollCollectionDbContext(DbContextOptions<TollCollectionDbContext> options)
             : base(options)

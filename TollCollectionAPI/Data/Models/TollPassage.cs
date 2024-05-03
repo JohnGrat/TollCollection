@@ -1,11 +1,10 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.ComponentModel.DataAnnotations;
 
-namespace Data.Model
+namespace Data.Models
 {
     [PrimaryKey(nameof(RegistrationNumber), nameof(Timestamp))]
-    public class Vehicle
+    public class TollPassage
     {
         public string RegistrationNumber { get; set; }
 
