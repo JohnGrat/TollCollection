@@ -1,9 +1,16 @@
+using Data;
+using Microsoft.EntityFrameworkCore;
+using Presentation.Config;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+builder.Services.AddDbContext<TollCollectionDbContext>(options =>
+    options.UseSqlite(builder.Configuration.GetConnectionString(AppConfig.TollCollectionDatabase)));
 
 var app = builder.Build();
 
