@@ -1,6 +1,6 @@
 using Data;
 using Microsoft.EntityFrameworkCore;
-using Presentation.Config;
+using Presentation.Configs;
 
 var builder = WebApplication.CreateBuilder(args);
 

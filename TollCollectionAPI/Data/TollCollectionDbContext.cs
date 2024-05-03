@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using Data.Model;
+﻿using Data.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace Data
