@@ -10,7 +10,7 @@ namespace Business.Helpers
     public static class TollCalculator
     {
 
-        public static int GetTollFee(DateTime date, Vehicle vehicle)
+        public static int GetTollFee(DateTime date, TollPassage vehicle)
         {
             if (IsTollFreeDate(date)) return 0;
 
