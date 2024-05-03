@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Business.Repositories.Defaults
 {
-    public class TollRepository : IRepository<Vehicle, TollResult>
+    public class TollRepository : IRepository<TollPassage, TollResult>
     {
         private readonly TollCollectionDbContext _context;
 
@@ -15,16 +15,16 @@ namespace Business.Repositories.Defaults
             _context = context;
         }
 
-        public async Task<Vehicle> AddAsync(Vehicle entity)
+        public async Task<TollPassage> AddAsync(TollPassage entity)
         {
-            _context.Vehicles.Add(entity);
+            _context.TollPassages.Add(entity);
             await _context.SaveChangesAsync();
             return entity;
         }
 
         public async Task<IEnumerable<TollResult>> GetAllAsync(DateTime? startDate, DateTime? endDate)
         {
-            IQueryable<Vehicle> query = _context.Vehicles;
+            IQueryable<TollPassage> query = _context.TollPassages;
 
             if (startDate.HasValue)
             {
