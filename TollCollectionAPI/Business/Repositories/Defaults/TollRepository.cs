@@ -51,25 +51,11 @@ namespace Business.Repositories.Defaults
 
             var tollResults = await query
                 .Where(v => v.VehicleTypeId == 7)
-                .GroupBy(v => new { v.RegistrationNumber, v.Timestamp.Date, v.Timestamp.Hour })
-                .Select(g => g.OrderByDescending(v => v.Timestamp.Hour).First())
+                .GroupBy(v => new { v.RegistrationNumber, v.Timestamp.Date })
+                .Select(g => g.Select(v => v).ToList())
                 .ToListAsync();
 
-            var taxResults = tollResults
-                .GroupBy(v => new { v.RegistrationNumber, v.Timestamp.Date })
-                .Select(g => new TollResult
-                {
-                    VehicleRegistrationNumber = g.Key.RegistrationNumber,
-                    TotalTaxAmount = Math.Min(60, g.Sum(v => TollCalculator.GetTollFee(v.Timestamp)))
-                })
-                .GroupBy(v => v.VehicleRegistrationNumber)
-                .Select(g => new TollResult
-                {
-                    VehicleRegistrationNumber = g.Key,
-                    TotalTaxAmount = g.Sum(v => v.TotalTaxAmount)
-                })
-                .Where(v => v.TotalTaxAmount != 0)
-                .ToList();
+            var taxResults = TollCalculator.CalculateTheTotalTaxPerVehicle(tollResults);
 
             return taxResults;
         }
