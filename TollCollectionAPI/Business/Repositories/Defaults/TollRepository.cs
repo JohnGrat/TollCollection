@@ -49,15 +49,30 @@ namespace Business.Repositories.Defaults
             if (endDate.HasValue)
                 query = query.Where(v => v.Timestamp <= endDate.Value);
 
-            var tollResults = await query
+            var tollRecords = await query
                 .Where(v => v.VehicleTypeId == 7)
                 .GroupBy(v => new { v.RegistrationNumber, v.Timestamp.Date })
                 .Select(g => g.Select(v => v).ToList())
                 .ToListAsync();
 
-            var taxResults = TollCalculator.CalculateTheTotalTaxPerVehicle(tollResults);
+            List<TollResult> tollResults = new List<TollResult>();
+            foreach (var tollRecord in tollRecords)
+            {
+                var taxResults = TollCalculator.CalculateTaxPerDay(tollRecord);
+                tollResults.Add(taxResults);
+            }
 
-            return taxResults;
+            var aggregatedResults = tollResults
+                .GroupBy(t => t.VehicleRegistrationNumber)
+                .Select(group => new TollResult
+                {
+                    VehicleRegistrationNumber = group.Key,
+                    TotalTaxAmount = group.Sum(t => t.TotalTaxAmount)
+                })
+                .Where(t => t.TotalTaxAmount != 0)
+                .ToList();
+
+            return aggregatedResults;
         }
     }
 }
