@@ -3,10 +3,6 @@
 using Business.Models;
 using Data.Models;
 using Holidays;
-using Microsoft.EntityFrameworkCore.Query.Internal;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Runtime.CompilerServices;
-using System.Text.RegularExpressions;
 
 namespace Business.Helpers
 {
@@ -44,7 +40,10 @@ namespace Business.Helpers
 
             foreach (var vehiclePassages in tollPassages)
             {
-                var tolResult = new TollResult { VehicleRegistrationNumber = vehiclePassages.First().RegistrationNumber, TotalTaxAmount = 0 };
+                var tolResult = new TollResult {
+                    VehicleRegistrationNumber = vehiclePassages.FirstOrDefault().RegistrationNumber, 
+                    TotalTaxAmount = 0 
+                };
                 int i = 0;
                 while (i < vehiclePassages.Count)
                 {
@@ -63,13 +62,13 @@ namespace Business.Helpers
                     }
 
                     tolResult.TotalTaxAmount += maxHourTax;
+                    if (tolResult.TotalTaxAmount > 60)
+                        tolResult.TotalTaxAmount = 60;
 
                     i = j;
                 }
-
                 results.Add(tolResult);
             }
-
 
             var groupedResults = results
                 .GroupBy(result => result.VehicleRegistrationNumber)
