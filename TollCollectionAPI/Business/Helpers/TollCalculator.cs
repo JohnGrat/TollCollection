@@ -41,7 +41,7 @@ namespace Business.Helpers
             foreach (var vehiclePassages in tollPassages)
             {
                 var tolResult = new TollResult {
-                    VehicleRegistrationNumber = vehiclePassages.FirstOrDefault().RegistrationNumber, 
+                    VehicleRegistrationNumber = vehiclePassages.FirstOrDefault()!.RegistrationNumber, 
                     TotalTaxAmount = 0 
                 };
                 int i = 0;
