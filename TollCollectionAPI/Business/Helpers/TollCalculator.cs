@@ -34,52 +34,39 @@ namespace Business.Helpers
             return ReturnDates.isHoliday(date, ReturnDates.Country.Sweden, true, true) || date.Month == 7;
         }
 
-        public static List<TollResult> CalculateTheTotalTaxPerVehicle(List<List<TollPassage>> tollPassages)
+        public static TollResult CalculateTaxPerDay(List<TollPassage> tollPassages)
         {
-            var results = new List<TollResult>();
-
-            foreach (var vehiclePassages in tollPassages)
+            var tolResult = new TollResult
             {
-                var tolResult = new TollResult {
-                    VehicleRegistrationNumber = vehiclePassages.FirstOrDefault()!.RegistrationNumber, 
-                    TotalTaxAmount = 0 
-                };
-                int i = 0;
-                while (i < vehiclePassages.Count)
+                VehicleRegistrationNumber = tollPassages.FirstOrDefault()!.RegistrationNumber,
+                TotalTaxAmount = 0
+            };
+
+            int i = 0;
+            while (i < tollPassages.Count)
+            {
+                DateTime currentTimestamp = tollPassages[i].Timestamp;
+                int maxHourTax = GetTollFee(currentTimestamp);
+
+                int j = i + 1;
+                while (j < tollPassages.Count && tollPassages[j].Timestamp <= currentTimestamp.AddMinutes(60))
                 {
-                    DateTime currentTimestamp = vehiclePassages[i].Timestamp;
-                    int maxHourTax = GetTollFee(currentTimestamp);
-
-                    int j = i + 1;
-                    while (j < vehiclePassages.Count && vehiclePassages[j].Timestamp <= currentTimestamp.AddMinutes(60))
+                    int tax = GetTollFee(tollPassages[j].Timestamp);
+                    if (tax > maxHourTax)
                     {
-                        int tax = GetTollFee(vehiclePassages[j].Timestamp);
-                        if (tax > maxHourTax)
-                        {
-                            maxHourTax = tax;
-                        }
-                        j++;
+                        maxHourTax = tax;
                     }
-
-                    tolResult.TotalTaxAmount += maxHourTax;
-                    if (tolResult.TotalTaxAmount > 60)
-                        tolResult.TotalTaxAmount = 60;
-
-                    i = j;
+                    j++;
                 }
-                results.Add(tolResult);
+
+                tolResult.TotalTaxAmount += maxHourTax;
+                if (tolResult.TotalTaxAmount > 60)
+                    tolResult.TotalTaxAmount = 60;
+
+                i = j;
             }
 
-            var groupedResults = results
-                .GroupBy(result => result.VehicleRegistrationNumber)
-                .Select(group => new TollResult
-                {
-                    VehicleRegistrationNumber = group.Key,
-                    TotalTaxAmount = group.Sum(result => result.TotalTaxAmount)
-                })
-                .ToList();
-
-            return groupedResults;
+            return tolResult;
         }
     }
 }
