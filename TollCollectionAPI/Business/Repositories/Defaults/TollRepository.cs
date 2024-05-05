@@ -30,7 +30,7 @@ namespace Business.Repositories.Defaults
             {
                 RegistrationNumber = registrationNumber,
                 Timestamp = timestamp,
-                VehicleTypeId = vehicleType.Id // Set the VehicleTypeId using the Id of the found VehicleType
+                VehicleTypeId = vehicleType.Id
             };
 
             _context.TollPassages.Add(entity);
