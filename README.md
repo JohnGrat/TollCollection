@@ -38,4 +38,5 @@ It takes:
 
 This system uses an SQLite database that is part of the repo. It utilizes layered architecture and the repository pattern. It also utilizes the Fast-Endpoints library [here](https://fast-endpoints.com/).
 
-![image](https://imgur.com/BX8Qx0L)
+![BX8Qx0L](https://github.com/JohnGrat/TollCollection/assets/51702387/51f858d7-3d97-4274-a83e-8107ac292ee0)
+
