@@ -9,7 +9,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Data", "Data\Data.csproj", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Business", "Business\Business.csproj", "{A6C2E787-C8F0-42C7-81E5-58652891BD59}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataTransferContracts", "DataTransferContracts\DataTransferContracts.csproj", "{1D4F7E18-2FE1-4463-AEA9-64F1A958AC82}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataTransferContracts", "DataTransferContracts\DataTransferContracts.csproj", "{1D4F7E18-2FE1-4463-AEA9-64F1A958AC82}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests", "Tests\Tests.csproj", "{A56B88D7-61C0-4E8D-BF6F-243DE7159F7E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{1D4F7E18-2FE1-4463-AEA9-64F1A958AC82}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1D4F7E18-2FE1-4463-AEA9-64F1A958AC82}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1D4F7E18-2FE1-4463-AEA9-64F1A958AC82}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A56B88D7-61C0-4E8D-BF6F-243DE7159F7E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A56B88D7-61C0-4E8D-BF6F-243DE7159F7E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A56B88D7-61C0-4E8D-BF6F-243DE7159F7E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A56B88D7-61C0-4E8D-BF6F-243DE7159F7E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
