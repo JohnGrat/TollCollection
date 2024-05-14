@@ -16,18 +16,18 @@ namespace Business.Helpers
             int hour = date.Hour;
             int minute = date.Minute;
 
-            if ((hour == 6 && minute >= 0 && minute <= 29) ||
-                (hour == 8 && minute >= 30 && hour >= 14) ||
-                (hour == 18 && minute >= 0 && minute <= 29))
+            if ((hour == 6 && 0 <= minute && minute <= 29) ||
+                (hour == 8 && 30 <= minute && hour < 15) ||
+                (hour == 18 && 0 <= minute  && minute <= 29))
                 return 9;
-            else if ((hour == 6 && minute >= 30 && minute <= 59) ||
-                     (hour == 8 && minute >= 0 && minute <= 29) ||
-                     (hour == 15 && minute >= 0 && minute <= 29) ||
-                     (hour == 17 && minute >= 0 && minute <= 59))
+            else if ((hour == 6 && 30 <= minute && minute <= 59) ||
+                     (hour == 8 && 0 <= minute  && minute <= 29) ||
+                     (hour == 15 && 0 <= minute  && minute <= 29) ||
+                     (hour == 17 && 0 <= minute && minute <= 59))
                 return 16;
-            else if ((hour == 7 && minute >= 0 && minute <= 59) ||
-                (hour == 15 && minute >= 30 && minute <= 59) ||
-                (hour == 16 && minute >= 0 && minute <= 59))
+            else if ((hour == 7 && 0 <= minute && minute <= 59) ||
+                (hour == 15 && 30 <= minute && minute <= 59) ||
+                (hour == 16 && 0 <= minute && minute <= 59))
                 return 22;
             else
                 return 0;
